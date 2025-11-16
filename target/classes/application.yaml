@@ -1,3 +1,5 @@
 spring:
+  main.allow-bean-definition-overriding: true
+  threads.virtual.enabled: true
   application:
     name: exception-window
