@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public interface ExceptionWindow {
+public interface ExceptionWindowService {
 
     void postException(ExceptionWrapper exceptionWrapper);
 
@@ -16,5 +16,5 @@ public interface ExceptionWindow {
 
     Optional<ExceptionWrapper> getExceptionById(String id);
 
-    void cleanUp();
+    void cleanUpHistory();
 }
