@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface ExceptionWindowService {
 
+    Integer getExceptionCount();
+
     void postException(ExceptionWrapper exceptionWrapper);
 
     Optional<List<ExceptionWrapper>> getExceptions();
@@ -16,5 +18,19 @@ public interface ExceptionWindowService {
 
     Optional<ExceptionWrapper> getExceptionById(String id);
 
-    void cleanUpHistory();
+    void scheduledCleanUpHistory();
+
+    void clearAllHistory();
+
+    // For Testing ...
+    void throwDomainException(String message);
+
+    // For Testing ...
+    void throwNPE(String message);
+
+    // For Testing ...
+    void throwRuntimeException(String message);
+
+    // For Testing ...
+    void throwException(String message) throws Exception;
 }

@@ -1,6 +1,6 @@
 package exception.window;
 
-import exception.window.config.ExceptionHandlingAspect;
+import exception.window.aspect.ExceptionHandlingAspect;
 import exception.window.service.ExceptionWindowService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;

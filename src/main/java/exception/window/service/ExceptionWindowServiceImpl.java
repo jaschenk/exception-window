@@ -1,5 +1,6 @@
 package exception.window.service;
 
+import exception.window.exception.DomainException;
 import exception.window.model.ExceptionWrapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,11 @@ public class ExceptionWindowServiceImpl implements ExceptionWindowService {
 
     @Value("${exception.window.history.max.size:128}")
     private Integer MAX_EXCEPTION_HISTORY_SIZE;
+
+    @Override
+    public Integer getExceptionCount() {
+        return EXCEPTION_HISTORY.size();
+    }
 
     @Override
     public void postException(ExceptionWrapper exceptionWrapper) {
@@ -62,10 +68,15 @@ public class ExceptionWindowServiceImpl implements ExceptionWindowService {
 
     @Override
     @Scheduled(fixedRateString = "${exception.window.history.ttl:60000}", initialDelayString = "${exception.window.history.ttl:60000}")
-    public void cleanUpHistory() {
+    public void scheduledCleanUpHistory() {
 
         cleanUpHistory(EXCEPTION_HISTORY, MAX_EXCEPTION_HISTORY_SIZE);
 
+    }
+
+    @Override
+    public void clearAllHistory() {
+        EXCEPTION_HISTORY.clear();
     }
 
     protected static void cleanUpHistory(ConcurrentMap<String, ?> lastHistory,
@@ -130,5 +141,26 @@ public class ExceptionWindowServiceImpl implements ExceptionWindowService {
         return historyDate;
     }
 
+    @Override
+    public void throwDomainException(String message) {
+        if (message == null) {
+            throw new DomainException("Message value cannot be null");
+        }
+        throw new DomainException(message);
+    }
 
+    @Override
+    public void throwNPE(String message) {
+        throw new NullPointerException(message);
+    }
+
+    @Override
+    public void throwRuntimeException(String message) {
+        throw new RuntimeException(message);
+    }
+
+    @Override
+    public void throwException(String message) throws Exception {
+        throw new Exception(message);
+    }
 }

@@ -1,12 +1,12 @@
-package exception.window.config;
+package exception.window.aspect;
 
+import exception.window.config.ApplicationContextProvider;
 import exception.window.model.ExceptionWrapper;
 import exception.window.service.ExceptionWindowService;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Log4j2
@@ -21,19 +21,14 @@ public class ExceptionHandlingAspect {
     }
 
     /**
-     * Pointcut that matches all methods in the application package
-     * Adjust the package path to match your application
-     */
-    @Pointcut("within(exception.window..*)")
-    public void applicationPackagePointcut() {
-        // Pointcut definition
-    }
-
-    /**
      * Advice that logs exceptions thrown by any method in the application
      */
     @AfterThrowing(
-            pointcut = "applicationPackagePointcut()",
+            pointcut = "execution(* exception.window..*(..)) || " +
+                    "within(@org.springframework.stereotype.Service *) || " +
+                    "within(@org.springframework.stereotype.Repository *) || " +
+                    "within(@org.springframework.stereotype.Controller *) || " +
+                    "within(@org.springframework.web.bind.annotation.RestController *)",
             throwing = "exception"
     )
     public void logAfterThrowing(JoinPoint joinPoint, Throwable exception) {
