@@ -45,10 +45,10 @@ public class ExceptionWindowServiceImpl implements ExceptionWindowService {
         }
 
         List<ExceptionWrapper> filtered = EXCEPTION_HISTORY.values().stream()
-                .filter(e -> e.getTimeOfException() != null)
+                .filter(e -> e.getLastOccurrence() != null)
                 .filter(e ->
-                        !e.getTimeOfException().before(from) &&
-                                !e.getTimeOfException().after(to)
+                        !e.getLastOccurrence().before(from) &&
+                                !e.getLastOccurrence().after(to)
                 )
                 .collect(Collectors.toList());
 
