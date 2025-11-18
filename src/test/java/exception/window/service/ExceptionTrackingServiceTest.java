@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @Log4j2
 @SpringBootTest
+@EnableAspectJAutoProxy
 @TestMethodOrder( org.junit.jupiter.api.MethodOrderer.MethodName.class)
 class ExceptionTrackingServiceTest {
 
